@@ -37,19 +37,22 @@ const list_img = document.getElementById('list_img');
 const btnNext = document.getElementsByName('j-btNext')[0];
 const btnPrev = document.getElementsByName('j-btPrev')[0];
 
-btnNext.addEventListener('click', () => {
-    counter.increment();
+function changeImg () {
     let img = photos[counter.count];
     img.filename = getFilename;
     foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${img.filename()}></img>`;
-    
+}
+
+btnNext.addEventListener('click', () => {
+    counter.increment();
+    foto_frame.firstChild.style.opacity = 0
+    foto_frame.firstChild.addEventListener("transitionend", changeImg, false);
 })
 
 btnPrev.addEventListener('click', () => {
     counter.decrement();
-    let img = photos[counter.count];
-    img.filename = getFilename;
-    foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${img.filename()}></img>`;
+    foto_frame.firstChild.style.opacity = 0
+    foto_frame.firstChild.addEventListener("transitionend", changeImg, false);
 })
 
 

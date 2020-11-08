@@ -49,18 +49,25 @@ h1, .address, .logo, aside div {
     margin-right: auto;
     max-width: 100%;
     height: auto;
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
   }
 
-#foto_frame img {
-    animation: fade 5s linear infinite;
-    animation-delay: 2.5s;
+.animated {
+    /* animation: fade 5s linear infinite; */
+    animation-duration: fade;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    /* animation-delay: 2.5s; */
 }
 
 @keyframes fade {
-    0% { opacity: 1 };
-    50% { opacity: 0 };
-    100% { opacity: 1 };
-}
+    0% { opacity: 1 }
+    50% { opacity: 0 }
+    100% { opacity: 1 }
+} */
 
 button {
     width: 140px;
