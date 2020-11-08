@@ -11,20 +11,25 @@ function getFilename () {
 
 let counter = {
     count: 0,
+    count_prev: 0,
 
     increment() {
         if (this.count < photos.length - 1) {
-            this.count++
+            this.count++;
+            this.count_prev = this.count - 1;
         } else {
             this.count = 0;
+            this.count_prev = photos.length - 1;
         };
     },
 
     decrement() {
         if (this.count > 0) {
-            this.count--
+            this.count--;
+            this.count_prev = this.count + 1;
         } else {
             this.count = photos.length - 1;
+            this.count_prev = 0;
         };
     },
 }; 
@@ -41,18 +46,23 @@ function changeImg () {
     let img = photos[counter.count];
     img.filename = getFilename;
     foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${img.filename()}></img>`;
+    // выделение красным текущего файла в списке
+    list_img.children[counter.count_prev].removeAttribute("style");
+    let current_file = list_img.children[counter.count];
+    current_file.style.color = "red";   
 }
 
 btnNext.addEventListener('click', () => {
     counter.increment();
+    foto_frame.firstChild.classList.toggle("animated");
     foto_frame.firstChild.style.opacity = 0
     foto_frame.firstChild.addEventListener("transitionend", changeImg, false);
 })
 
 btnPrev.addEventListener('click', () => {
     counter.decrement();
-    foto_frame.firstChild.style.opacity = 0
-    foto_frame.firstChild.addEventListener("transitionend", changeImg, false);
+    foto_frame.firstChild.classList.add("animated");
+    foto_frame.firstChild.addEventListener("animationend", changeImg, false);
 })
 
 
@@ -72,4 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(img);
     foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${img.filename()}></img>`;
     createListImg();
+    let current_file = list_img.children[counter.count];
+    current_file.style.color = "red"
 });

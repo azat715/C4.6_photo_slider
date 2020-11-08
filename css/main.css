@@ -56,18 +56,24 @@ h1, .address, .logo, aside div {
 
 .animated {
     /* animation: fade 5s linear infinite; */
-    animation-duration: fade;
+    animation-name: fade;
     animation-duration: 5s;
-    animation-timing-function: linear;
+    animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
     /* animation-delay: 2.5s; */
 }
 
 @keyframes fade {
-    0% { opacity: 1 }
-    50% { opacity: 0 }
-    100% { opacity: 1 }
-} */
+    from {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    to {
+        width: 0%;
+        height: auto;
+    }
+}
 
 button {
     width: 140px;
