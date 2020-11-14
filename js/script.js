@@ -44,25 +44,39 @@ const btnPrev = document.getElementsByName('j-btPrev')[0];
 
 function changeImg () {
     let img = photos[counter.count];
-    img.filename = getFilename;
-    foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${img.filename()}></img>`;
+    foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${getFilename.call(img)}></img>`;
     // выделение красным текущего файла в списке
     list_img.children[counter.count_prev].removeAttribute("style");
     let current_file = list_img.children[counter.count];
     current_file.style.color = "red";   
 }
 
-btnNext.addEventListener('click', () => {
-    counter.increment();
+btnNext.addEventListener('click', (elem) => {
+    elem.target.setAttribute("disabled", "disabled");
+    elem.target.removeAttribute("autofocus");
     foto_frame.firstChild.classList.toggle("animated");
-    foto_frame.firstChild.style.opacity = 0
-    foto_frame.firstChild.addEventListener("transitionend", changeImg, false);
+    foto_frame.firstChild.style.opacity = 0;
+    foto_frame.firstChild.addEventListener("transitionend", () => {
+        counter.increment();
+        changeImg();
+        elem.target.removeAttribute("disabled");
+        elem.target.focus();
+    }, false);
+    elem.tabIndex = "1"
+    btnPrev.tabIndex = "2";
 })
 
-btnPrev.addEventListener('click', () => {
-    counter.decrement();
+btnPrev.addEventListener('click', (elem) => {
+    elem.target.setAttribute("disabled", "disabled");
     foto_frame.firstChild.classList.add("animated");
-    foto_frame.firstChild.addEventListener("animationend", changeImg, false);
+    foto_frame.firstChild.addEventListener("animationend", () => {
+        counter.decrement();
+        changeImg();
+        elem.target.removeAttribute("disabled");
+        elem.target.focus();
+    }, false);
+    elem.tabIndex = "1"
+    btnNext.tabIndex = "2";
 })
 
 
@@ -78,10 +92,10 @@ function createListImg() {
 
 document.addEventListener("DOMContentLoaded", () => {
     let img = photos[0];
-    img.filename = getFilename;
-    console.log(img);
-    foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${img.filename()}></img>`;
+    // img.filename = getFilename;
+    // console.log(img);
+    foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${getFilename.call(img)}></img>`;
     createListImg();
-    let current_file = list_img.children[counter.count];
-    current_file.style.color = "red"
+    // подсветка первого файла 
+    list_img.children[counter.count].style.color = "red";
 });

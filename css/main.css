@@ -41,9 +41,10 @@ h1, .address, .logo, aside div {
     min-height: 75%;
     margin: 10px;
     border: 1px double black;
+    background-color: gray;
 }
 
-.foto_frame_wrapper img {
+.foto_frame img {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -78,7 +79,16 @@ h1, .address, .logo, aside div {
 button {
     width: 140px;
     height: 45px;
+    text-align: center;
+    border: 2px solid red;
+    border-radius: 5px;
 }
+
+button:hover {
+    background-color: green; 
+    color: white;
+    border-color: green;
+  }
 
 .button_wrapper {
     margin: 10px;
