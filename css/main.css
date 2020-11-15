@@ -64,15 +64,9 @@ h1, .address, .logo, aside div {
     /* animation-delay: 2.5s; */
 }
 
-@keyframes fade {
-    from {
-        max-width: 100%;
-        height: auto;
-    }
-    
+@keyframes fade {    
     to {
         width: 0%;
-        height: auto;
     }
 }
 
@@ -107,6 +101,13 @@ aside h4 {
 
 footer {
     grid-area:  footer;
+}
+
+@media (max-width: 400px) {
+    .foto_frame_wrapper {
+        width: 340px;
+        height: 340px;
+    }
 }
 
 @media (min-width: 576px) {
@@ -146,4 +147,5 @@ footer {
     .button_wrapper {
         max-width: 70%;
     }
+   
 }
