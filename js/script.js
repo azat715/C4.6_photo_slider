@@ -52,27 +52,21 @@ function changeImg () {
 }
 
 btnNext.addEventListener('click', (elem) => {
-    elem.target.setAttribute("disabled", "disabled");
     elem.target.removeAttribute("autofocus");
-    foto_frame.firstChild.classList.toggle("animated");
     foto_frame.firstChild.style.opacity = 0;
     foto_frame.firstChild.addEventListener("transitionend", () => {
         counter.increment();
         changeImg();
-        elem.target.removeAttribute("disabled");
-        elem.target.focus();
     }, false);
     elem.tabIndex = "1"
     btnPrev.tabIndex = "2";
 })
 
 btnPrev.addEventListener('click', (elem) => {
-    elem.target.setAttribute("disabled", "disabled");
     foto_frame.firstChild.classList.add("animated");
     foto_frame.firstChild.addEventListener("animationend", () => {
         counter.decrement();
         changeImg();
-        elem.target.removeAttribute("disabled");
         elem.target.focus();
     }, false);
     elem.tabIndex = "1"
@@ -92,10 +86,17 @@ function createListImg() {
 
 document.addEventListener("DOMContentLoaded", () => {
     let img = photos[0];
-    // img.filename = getFilename;
-    // console.log(img);
     foto_frame.innerHTML = `<img src=${img.src} width=${img.width} height=${img.height}" alt=${getFilename.call(img)}></img>`;
     createListImg();
     // подсветка первого файла 
     list_img.children[counter.count].style.color = "red";
+    foto_frame.firstChild.addEventListener("transitioncancel", () => {
+        counter.increment();
+        changeImg();
+    })
+    
+    foto_frame.firstChild.addEventListener("animationcancel", () => {
+        counter.decrement();
+        changeImg();
+    })
 });
